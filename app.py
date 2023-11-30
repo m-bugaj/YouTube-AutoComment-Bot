@@ -47,6 +47,21 @@ def leave_a_comment(channel_url):
 
     time.sleep(1)
 
+    # Type a comment
+    comment_text = "Test comment"
+    comment_input = driver.find_elements(By.XPATH, '//*[@id="contenteditable-root"] ')
+    driver.execute_script('''
+        arguments[0].innerText = '{}';
+    '''.format(comment_text), comment_input[-1])
+    comment_input[-1].send_keys('.')
+    comment_input[-1].send_keys(Keys.BACKSPACE)
+
+    time.sleep(1)
+
+    # Publish the comment
+    comment_button = driver.find_elements(By.XPATH, '//*[@id="submit-button"]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2]')
+    comment_button[-1].click()
+
 # Initialize the browser with undetected_chromedriver
 driver = uc.Chrome()
 
