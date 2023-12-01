@@ -10,7 +10,7 @@ def is_cookies_empty(filename="cookies.pkl"):
     # Check if the cookies file is empty
     return not os.path.exists(filename) or os.path.getsize(filename) == 0
 
-def leave_a_comment(channel_url):
+def leave_a_comment(channel_url, comments):
     # Wait a moment to allow the page to load
     time.sleep(2)
 
@@ -48,7 +48,7 @@ def leave_a_comment(channel_url):
     time.sleep(1)
 
     # Type a comment
-    comment_text = get_random_comment(yt_comments)
+    comment_text = get_random_comment(comments)
     comment_input = driver.find_elements(By.XPATH, '//*[@id="contenteditable-root"] ')
     driver.execute_script('''
         arguments[0].innerText = '{}';
@@ -65,11 +65,7 @@ def leave_a_comment(channel_url):
 def get_random_comment(comments):
     return random.choice(comments)
 
-
-if __name__ == "__main__":
-    # Initialize the browser with undetected_chromedriver
-    driver = uc.Chrome()
-
+def check_cookies(driver):
     if is_cookies_empty():
         # Open the login page, user logs in manually
         driver.get("https://www.youtube.com/")
@@ -84,6 +80,13 @@ if __name__ == "__main__":
         for cookie in cookies:
             driver.add_cookie(cookie)
 
+
+if __name__ == "__main__":
+    # Initialize the browser with undetected_chromedriver
+    driver = uc.Chrome()
+
+    check_cookies(driver)
+
     yt_channels = []
     with open("channel_urls.txt", 'r') as file:
         for line in file:
@@ -97,7 +100,7 @@ if __name__ == "__main__":
             yt_comments.append(cleaned_line)
 
     for channel_url in yt_channels:
-        leave_a_comment(channel_url)
+        leave_a_comment(channel_url, yt_comments)
 
     # Wait a moment for the window to close
     time.sleep(5)
