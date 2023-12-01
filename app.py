@@ -48,7 +48,7 @@ def leave_a_comment(channel_url):
     time.sleep(1)
 
     # Type a comment
-    comment_text = "Test comment"
+    comment_text = get_random_comment(yt_comments)
     comment_input = driver.find_elements(By.XPATH, '//*[@id="contenteditable-root"] ')
     driver.execute_script('''
         arguments[0].innerText = '{}';
@@ -62,33 +62,44 @@ def leave_a_comment(channel_url):
     comment_button = driver.find_elements(By.XPATH, '//*[@id="submit-button"]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2]')
     comment_button[-1].click()
 
-# Initialize the browser with undetected_chromedriver
-driver = uc.Chrome()
+def get_random_comment(comments):
+    return random.choice(comments)
 
-if is_cookies_empty():
-    # Open the login page, user logs in manually
-    driver.get("https://www.youtube.com/")
-    input('Log in to your Google account and press Enter to continue...')
-    
-    # Save cookies to the file
-    pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
-else:
-    # Load cookies if available
-    driver.get("https://www.youtube.com/")
-    cookies = pickle.load(open("cookies.pkl", "rb"))
-    for cookie in cookies:
-        driver.add_cookie(cookie)
 
-yt_channels = []
-with open("channel_urls.txt", 'r') as file:
-    for line in file:
-        cleaned_line = line.strip()
-        yt_channels.append(cleaned_line)
+if __name__ == "__main__":
+    # Initialize the browser with undetected_chromedriver
+    driver = uc.Chrome()
 
-for channel_url in yt_channels:
-    leave_a_comment(channel_url)
+    if is_cookies_empty():
+        # Open the login page, user logs in manually
+        driver.get("https://www.youtube.com/")
+        input('Log in to your Google account and press Enter to continue...')
+        
+        # Save cookies to the file
+        pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
+    else:
+        # Load cookies if available
+        driver.get("https://www.youtube.com/")
+        cookies = pickle.load(open("cookies.pkl", "rb"))
+        for cookie in cookies:
+            driver.add_cookie(cookie)
 
-# Wait a moment for the window to close
-time.sleep(5)
+    yt_channels = []
+    with open("channel_urls.txt", 'r') as file:
+        for line in file:
+            cleaned_line = line.strip()
+            yt_channels.append(cleaned_line)
 
-driver.close()
+    yt_comments = []
+    with open("comments.txt", 'r', encoding='utf-8') as file:
+        for line in file:
+            cleaned_line = line.strip()
+            yt_comments.append(cleaned_line)
+
+    for channel_url in yt_channels:
+        leave_a_comment(channel_url)
+
+    # Wait a moment for the window to close
+    time.sleep(5)
+
+    driver.close()
