@@ -4,7 +4,7 @@
   <img src="ytlogo.png" alt="Logo" width="150">
 </p>
 
-##Overview
+## Overview
 
 YouTube Auto Comment Bot is a Python script utilizing Selenium to automate leaving comments on YouTube videos. It allows users to leave comments with customizable content on multiple channels.
 
