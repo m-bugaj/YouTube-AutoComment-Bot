@@ -30,8 +30,11 @@ def leave_a_comment(channel_url, comments):
     time.sleep(2)
 
     # Go to the first video
-    element = driver.find_element(By.CSS_SELECTOR, '#contents > ytd-rich-item-renderer:nth-child(1)')
-    element.click()
+    try:
+        element = driver.find_element(By.CSS_SELECTOR, '#contents > ytd-rich-item-renderer:nth-child(1)')
+        element.click()
+    except Exception as e:
+        return
 
     time.sleep(3)
 
@@ -48,11 +51,12 @@ def leave_a_comment(channel_url, comments):
     time.sleep(1)
 
     # Type a comment
-    comment_text = get_random_comment(comments)
+    comment_text = get_random_comment(yt_comments)
     comment_input = driver.find_elements(By.XPATH, '//*[@id="contenteditable-root"] ')
     driver.execute_script('''
-        arguments[0].innerText = '{}';
-    '''.format(comment_text), comment_input[-1])
+    var commentInput = arguments[0];
+    commentInput.innerText = '{}';
+'''.format(comment_text), comment_input[-1])
     comment_input[-1].send_keys('.')
     comment_input[-1].send_keys(Keys.BACKSPACE)
 
