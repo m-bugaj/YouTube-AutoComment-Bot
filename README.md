@@ -19,6 +19,7 @@ YouTube Auto Comment Bot is a Python script utilizing Selenium to automate leavi
 
 1) The bot is configured to select the latest video from the channel's video section and comment on it. This is especially useful for "type beat" music producers who want to leave comments on other producers' channels while waiting for feedback on their videos.
 2) Bot is created for educational purposes and should be used responsibly. The author disclaims any responsibility for the consequences that may arise if the bot is misused, such as receiving a ban from Google on YouTube.
+3) The comment can only contain letters, numbers, the "!" sign, the "?" sign and emoji. Each comment is one line of text in a .txt file. A comment can NOT contain the characters " ' " (apostrophe character) and " " (quotation mark). There must be no blank lines in the comments.txt file!
 
 ## 💻 Usage
 
