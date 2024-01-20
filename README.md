@@ -36,6 +36,10 @@ YouTube Auto Comment Bot is a Python script utilizing Selenium to automate leavi
 - Modify `channel_urls.txt` to include the YouTube channels you want to comment on.
 - Customize your comments by adding or removing entries in the `comments.txt` file. Read the 3) point of the [IMPORTANT INFO](https://github.com/m-bugaj/YouTube-AutoComment-Bot#-important-info-)  section to learn how the comments.txt file should look.
 
+## 🚀 Future Enhancements
+
+In the future, it is planned to make a window application for easy management of bot settings.
+
 ## 👨‍💻 Author
 
 - **Michał Bugaj**
