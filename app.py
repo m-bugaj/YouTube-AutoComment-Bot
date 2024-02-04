@@ -5,6 +5,7 @@ import time
 import pickle
 import os
 import random
+import sys
 
 def is_cookies_empty(filename="cookies.pkl"):
     # Check if the cookies file is empty
@@ -91,6 +92,7 @@ if __name__ == "__main__":
 
     check_cookies(driver)
 
+    channel_url_counter = 0
     yt_channels = []
     with open("channel_urls.txt", 'r') as file:
         for line in file:
@@ -102,9 +104,20 @@ if __name__ == "__main__":
         for line in file:
             cleaned_line = line.strip()
             yt_comments.append(cleaned_line)
-
+        
     for channel_url in yt_channels:
-        leave_a_comment(channel_url, yt_comments)
+        channel_url_counter += 1
+        try:
+            leave_a_comment(channel_url, yt_comments)
+        except Exception as e:
+            channel_url_counter -=1
+            print(f"Błąd podczas komentowania kanału {channel_url}: {e}")
+        
+
+    if channel_url_counter == len(yt_channels):
+        print("SUCCESS")
+    else:
+        print(f"Zostawiono {channel_url_counter} / {len(yt_channels)} komentarzy!")
 
     # Wait a moment for the window to close
     time.sleep(5)
