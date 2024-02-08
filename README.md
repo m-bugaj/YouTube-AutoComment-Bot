@@ -38,6 +38,7 @@ YouTube Auto Comment Bot is a Python script utilizing Selenium to automate leavi
 
 ## 🚀 Future Enhancements
 
+Adding log writing support.
 In the future, it is planned to make a window application for easy management of bot settings.
 
 ## 👨‍💻 Author
