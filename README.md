@@ -24,7 +24,7 @@ YouTube Auto Comment Bot is a Python script utilizing Selenium to automate leavi
 ## 💻 Usage
 
 1. Ensure you have Python installed on your machine.
-2. Install the required dependencies using `pip install -r requirements.txt`. (I will add this file shortly.)
+2. Install the required dependencies using `pip install -r requirements.txt`.
 3. Create a `channel_urls.txt` file with YouTube channel URLs.
 4. Prepare a list of comments in a `comments.txt` file.
 5. Run the script using `python app.py`.
