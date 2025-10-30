@@ -36,10 +36,34 @@ YouTube Auto Comment Bot is a Python script utilizing Selenium to automate leavi
 - Modify `channel_urls.txt` to include the YouTube channels you want to comment on.
 - Customize your comments by adding or removing entries in the `comments.txt` file. Read the 3) point of the [IMPORTANT INFO](https://github.com/m-bugaj/YouTube-AutoComment-Bot#-important-info-)  section to learn how the comments.txt file should look.
 
-## 🚀 Future Enhancements
+## 🚀 Upcoming Features
 
-Adding log writing support.
-In the future, it is planned to make a window application for easy management of bot settings.
+- **✅ Comment duplication check**  
+  The program will verify whether a comment has already been posted under a given video.  
+  If a matching comment exists, the video will be skipped automatically.
+
+- **📊 Console progress bar**  
+  Add a real-time progress bar showing execution progress in the console.  
+  The progress will be based on the number of comments successfully posted across all target channels.
+
+- **🤝 Smart channel targeting**  
+  Implement an algorithm to automatically search for channels that are most likely to engage back —  
+  e.g., by leaving comments or feedback on your own videos.
+
+- **🚫 Low-engagement channel filtering**  
+  Automatically detect and remove from the list channels that consistently fail to reciprocate  
+  (don’t comment back on your channel’s content).
+
+- **⚙️ Parallel execution (multithreading / multiprocessing)**  
+  Introduce multithreading to speed up operations.  
+  This feature should also be verified for spam or bot behavior detection by YouTube.
+
+- **🧾 Log writing support**  
+  Implement detailed log writing to track program actions, errors, and skipped videos for easier debugging and analysis.
+
+- **🪟 GUI application**  
+  Develop a desktop (windowed) application to simplify bot configuration and management  
+  through an intuitive graphical interface.
 
 ## 👨‍💻 Author
 
