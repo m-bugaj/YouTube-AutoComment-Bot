@@ -1,6 +1,8 @@
 import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 import pickle
 import os
@@ -45,6 +47,11 @@ def leave_a_comment(channel_url, comments):
     # Delay to load the comments section
     time.sleep(4)
 
+    # Sprawdź, czy mój komentarz już jest
+    if is_my_comment_on_top(driver, my_handle="@BUGIBEATZ"):
+        print("Komentarz już istnieje – pomijam to wideo.")
+        return
+
     # Click on the comment input box
     comment_input_box = driver.find_elements(By.XPATH, '//*[@id="placeholder-area"]')
     comment_input_box[-1].click()
@@ -64,8 +71,45 @@ def leave_a_comment(channel_url, comments):
     time.sleep(1)
 
     # Publish the comment
-    comment_button = driver.find_elements(By.XPATH, '//*[@id="submit-button"]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2]')
-    comment_button[-1].click()
+    wait = WebDriverWait(driver, 10)
+    comment_button = wait.until(
+        EC.element_to_be_clickable((By.XPATH, '//*[@id="submit-button"]//button'))
+    )
+    comment_button.click()
+    # comment_button = driver.find_elements(By.XPATH, '//*[@id="submit-button"]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2]')
+    # comment_button[-1].click()
+
+def is_my_comment_on_top(driver, my_handle="@BUGIBEATZ", max_comments_to_check=2):
+    """
+    Sprawdza pierwsze 1–2 komentarze na stronie.
+    Zwraca True, jeśli autor któregokolwiek to my_handle (np. '@BUGIBEATZ').
+    """
+    try:
+        # poczekaj, aż pojawi się sekcja komentarzy
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "ytd-comment-thread-renderer"))
+        )
+
+        # pobierz pierwsze kilka wątków komentarzy
+        comment_threads = driver.find_elements(By.CSS_SELECTOR, "ytd-comment-thread-renderer")[:max_comments_to_check]
+
+        for thread in comment_threads:
+            try:
+                # znajdź element z nazwą autora
+                author_el = thread.find_element(By.CSS_SELECTOR, "#author-text span")
+                author_name = author_el.text.strip()
+
+                # porównanie z handlem
+                if author_name.lower().replace("@", "") == my_handle.lower().replace("@", ""):
+                    print(f"Znaleziono mój komentarz: {author_name}")
+                    return True
+            except Exception:
+                continue
+
+    except Exception as e:
+        print(f"Błąd przy sprawdzaniu komentarzy: {e}")
+
+    return False
 
 def get_random_comment(comments):
     return random.choice(comments)
