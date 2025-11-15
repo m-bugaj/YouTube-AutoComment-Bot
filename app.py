@@ -150,11 +150,10 @@ if __name__ == "__main__":
             yt_comments.append(cleaned_line)
         
     for channel_url in yt_channels:
-        channel_url_counter += 1
         try:
             leave_a_comment(channel_url, yt_comments)
+            channel_url_counter += 1
         except Exception as e:
-            channel_url_counter -=1
             print(f"Błąd podczas komentowania kanału {channel_url}: {e}")
         
 
