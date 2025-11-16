@@ -1,2 +1,5 @@
 cookies.pkl
 channel_urls.txt
+
+__pycache__/
+*.pyc
