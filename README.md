@@ -14,6 +14,7 @@ YouTube Auto Comment Bot is a Python script utilizing Selenium to automate leavi
 - **Customizable Comments**: Users can provide a list of comments, and the bot will randomly select and post them.
 - **Cookie Management**: Utilizes cookies for YouTube login, allowing automated commenting without manual login each time.
 - **Multiple Channel Support**: Supports commenting on multiple YouTube channels.
+- **✅ Comment duplication check**: The program will verify whether a comment has already been posted under a given video. If a matching comment exists, the video will be skipped automatically.
 
 ## ❗ Important info ❗
 
@@ -38,9 +39,7 @@ YouTube Auto Comment Bot is a Python script utilizing Selenium to automate leavi
 
 ## 🚀 Upcoming Features
 
-- **✅ Comment duplication check**  
-  The program will verify whether a comment has already been posted under a given video.  
-  If a matching comment exists, the video will be skipped automatically.
+
 
 - **📊 Console progress bar**  
   Add a real-time progress bar showing execution progress in the console.  
