@@ -10,6 +10,7 @@ import random
 import sys
 from utils.youtube_navigation import go_to_videos_tab, get_latest_videos, reject_cookies
 from utils.common_navigation import scroll_to_bottom
+
 class ChannelsFinder:
     def __init__(self):
         self.driver = uc.Chrome()
@@ -31,7 +32,23 @@ class ChannelsFinder:
 
         urls = list(set(urls))
         return urls
+    
+    def save_urls_to_file(file_path, new_urls):
+        if not os.path.exists(file_path):
+            print(f"[INFO] File '{file_path}' not found. Creating new file...")
+            open(file_path, "w", encoding="utf-8").close()
+            existing_urls = set()
+        else:
+            with open(file_path, "r", encoding="utf-8") as f:
+                existing_urls = set(line.strip() for line in f.readlines())
 
+        existing_urls.update(new_urls)
+
+        with open(file_path, "w", encoding="utf-8") as f:
+            for url in sorted(existing_urls):
+                f.write(url + "\n")
+
+        print(f"[INFO] Saved {len(new_urls)} URLs (deduplicated total: {len(existing_urls)}).")
 
     def find_comentators_for_channel(self, channel_url, videos_count_to_handle=1):
         time.sleep(2)
