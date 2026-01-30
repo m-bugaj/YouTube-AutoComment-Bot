@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 import pickle
 import os
@@ -132,7 +133,13 @@ def check_cookies(driver):
 
 if __name__ == "__main__":
     # Initialize the browser with undetected_chromedriver
-    driver = uc.Chrome()
+    # driver = uc.Chrome()
+
+    options = uc.ChromeOptions()
+    driver = uc.Chrome(
+        options=options,
+        driver_executable_path=ChromeDriverManager().install()
+    )
 
     check_cookies(driver)
 
